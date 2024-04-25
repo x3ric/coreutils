@@ -1,0 +1,11 @@
+#!/bin/bash
+if [[ ! -d ./bin ]]; then mkdir ./bin; fi
+for file in ./src/*.c; do
+    filename=$(basename -- "$file")
+    filename_no_ext="./bin/${filename%.*}"
+    gcc "$file" -o "$filename_no_ext"
+    chmod +x "$filename_no_ext"
+done
+if [[ ! -z $1 ]]; then
+    ./bin/"$1" "${@:2}"
+fi
